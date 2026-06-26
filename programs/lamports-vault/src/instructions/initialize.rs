@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-use crate::{ANCHOR_DISCRIMINATOR_LENGTH, VAULT_SEED, VAULT_STATE_SEED, VaultState};
+use crate::{VaultState, ANCHOR_DISCRIMINATOR_LENGTH, VAULT_SEED, VAULT_STATE_SEED};
 
 #[derive(Accounts)]
 pub struct Initialize<'info> {
@@ -23,7 +23,7 @@ pub struct Initialize<'info> {
     pub system_program: Program<'info, System>,
 }
 
-pub fn initialize_vault(ctx: Context<Initialize>) -> Result<()> {
+pub fn initialize_vault(ctx: Context<Initialize>, max_withdraw: u64) -> Result<()> {
     msg!("Initializing vault for user: {}", ctx.accounts.user.key());
 
     let cpi_acccounts = anchor_lang::system_program::Transfer {
@@ -36,11 +36,9 @@ pub fn initialize_vault(ctx: Context<Initialize>) -> Result<()> {
     let rent = Rent::get()?.minimum_balance(ctx.accounts.vault.data_len());
 
     anchor_lang::system_program::transfer(cpi_ctx, rent)?;
-
-    ctx.accounts.vault_state.set_inner(VaultState {
-        vault_bump: ctx.bumps.vault, 
-        bump: ctx.bumps.vault_state
-    });
-    
+    // store state_bump, authority, max_withdraw
+    ctx.accounts.vault_state.state_bump = ctx.bumps.vault_state;
+    ctx.accounts.vault_state.authority = ctx.accounts.user.key();
+    ctx.accounts.vault_state.max_withdraw = max_withdraw;
     Ok(())
 }

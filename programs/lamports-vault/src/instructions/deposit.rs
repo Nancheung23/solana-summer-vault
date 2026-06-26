@@ -14,7 +14,7 @@ pub struct Deposit<'info> {
     pub vault: SystemAccount<'info>,
     #[account(
         seeds = [VAULT_STATE_SEED, user.key().as_ref()], 
-        bump = vault_state.bump
+        bump
     )]
     pub vault_state: Account<'info, VaultState>,
     pub system_program: Program<'info, System>,
