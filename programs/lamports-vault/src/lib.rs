@@ -10,7 +10,7 @@ pub use error::*;
 pub use instructions::*;
 pub use state::*;
 
-declare_id!("HnSo6RF3KaybAxVSpRwBavqdFwbYbFqcUsa6sjJtYdpv");
+declare_id!("9bLFXWQAEm8GAkNX4NWashck88JJVtnFxyGAy9Gc5xe4");
 
 #[program]
 pub mod lamports_vault {
