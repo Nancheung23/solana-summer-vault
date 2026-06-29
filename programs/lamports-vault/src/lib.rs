@@ -32,3 +32,5 @@ pub mod lamports_vault {
         close::close_vault(ctx)
     }
 }
+
+pub mod escrow {}
