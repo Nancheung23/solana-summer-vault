@@ -7,10 +7,10 @@ use anchor_lang::prelude::*;
 #[derive(InitSpace)]
 pub struct EscrowState {
     pub maker: Pubkey,
-    pub mint_deposit: Pubkey,
-    pub mint_receive: Pubkey,
-    pub deposit_amount: u64,
-    pub receive_amount: u64,
+    pub mint_a: Pubkey,
+    pub mint_b: Pubkey,
+    pub a_amount: u64,
+    pub b_amount: u64,
     pub created_at: i64,
     pub fees_bps: u16,
     pub seed: u16,

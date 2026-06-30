@@ -6,6 +6,9 @@ pub const DISCRIMINATOR: usize = 8;
 pub const ESCROW_SEED: &[u8] = b"escrow";
 
 #[constant]
+pub const VAULT_STATE: &[u8] = b"vault";
+
+#[constant]
 pub const MAX_BPS: u16 = 1000;
 
 #[constant]

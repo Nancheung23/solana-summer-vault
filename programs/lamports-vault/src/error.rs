@@ -14,4 +14,6 @@ pub enum EscrowError {
     InvalidAmount,
     #[msg("High fees bps: over 10%")]
     FeeTooHigh,
+    #[msg("Amount not match")]
+    AmountNotMatch,
 }
