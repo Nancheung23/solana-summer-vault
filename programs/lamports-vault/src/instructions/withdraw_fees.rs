@@ -50,7 +50,7 @@ pub struct WithdrawFees<'info> {
     pub associated_token_program: Program<'info, AssociatedToken>,
 }
 
-pub fn wtihdraw_fees_handler(ctx: Context<WithdrawFees>, amount: u64) -> Result<()> {
+pub fn withdraw_fees_handler(ctx: Context<WithdrawFees>, amount: u64) -> Result<()> {
     let cpi_program = ctx.accounts.token_program.to_account_info();
 
     require!(
