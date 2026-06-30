@@ -1,4 +1,5 @@
 use crate::constants::*;
+use crate::error::EscrowError;
 use crate::state::EscrowState;
 use anchor_lang::prelude::*;
 use anchor_spl::associated_token::AssociatedToken;
@@ -43,6 +44,12 @@ pub struct Cancel<'info> {
 
 pub fn cancel_handler(ctx: Context<Cancel>, seed: u16) -> Result<()> {
     let cpi_program = ctx.accounts.token_program.to_account_info();
+    // time validation
+    let current_time = Clock::get()?.unix_timestamp;
+    require!(
+        current_time - ctx.accounts.escrow_state.created_at >= 300,
+        EscrowError::TooEarlyToCancel
+    );
     let instruction_seed = seed.to_le_bytes();
     let maker_key = ctx.accounts.maker.key();
     let cpi_bump = ctx.bumps.escrow_state;

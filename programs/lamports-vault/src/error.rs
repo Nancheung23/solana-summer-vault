@@ -16,4 +16,6 @@ pub enum EscrowError {
     FeeTooHigh,
     #[msg("Amount not match")]
     AmountNotMatch,
+    #[msg("Too Early to cancel")]
+    TooEarlyToCancel,
 }
